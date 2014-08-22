@@ -30,5 +30,3 @@ Configuration
 ```
 
 Note : only addional paramters have listed above. 
-
-3. Restart the server 
