@@ -6,6 +6,7 @@ ClusterAwareJMSListener
 Configuration
 =======================
 
+```xml
  <transportReceiver name="jms" class="org.wso2.carbon.transport.jms.clusteraware.ClusterAwareJMSListener">
        <parameter name="myTopicConnectionFactory" locked="false">
            <parameter name="transport.jms.coordinatorElectionDelay">3000</parameter>
@@ -21,3 +22,4 @@ Configuration
            <parameter name="transport.jms.coordinatorElectionDelay">3000</parameter>
        </parameter>
    </transportReceiver>
+```
