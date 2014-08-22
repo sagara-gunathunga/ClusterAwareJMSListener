@@ -6,6 +6,11 @@ ClusterAwareJMSListener
 Configuration
 =======================
 
+1. Copy ClusterAwareJMSListener-X.jar file into "CARBON-HOME/repository/components/dropins" directory. 
+
+
+2. Modify "CARBON-HOME/repository/conf/axis2/axis2.xml" file. 
+
 ```xml
  <transportReceiver name="jms" class="org.wso2.carbon.transport.jms.clusteraware.ClusterAwareJMSListener">
        <parameter name="myTopicConnectionFactory" locked="false">
@@ -23,3 +28,5 @@ Configuration
        </parameter>
    </transportReceiver>
 ```
+
+3. Restart the server 
