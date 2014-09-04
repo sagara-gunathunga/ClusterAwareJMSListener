@@ -1,5 +1,5 @@
 /*
-*  Copyright (c) 2005-2011, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
+*  Copyright (c) 2005-2014, WSO2 Inc. (http://www.wso2.org) All Rights Reserved.
 *
 *  WSO2 Inc. licenses this file to you under the Apache License,
 *  Version 2.0 (the "License"); you may not use this file except
@@ -23,11 +23,8 @@ import org.apache.axis2.AxisFault;
 import org.apache.axis2.clustering.ClusteringAgent;
 import org.apache.axis2.transport.jms.JMSEndpoint;
 import org.apache.axis2.transport.jms.JMSListener;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.wso2.carbon.base.MultitenantConstants;
-import org.wso2.carbon.context.PrivilegedCarbonContext;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -67,21 +64,16 @@ public class ClusterAwareJMSListener extends JMSListener implements MembershipLi
                 super.startEndpoint(ep);
                 log.info(ep.getServiceName() + " started ! ");
             } catch (AxisFault axisFault) {
-                axisFault.printStackTrace();
+                log.error(axisFault);
+                //AxisJMSException is not public hence directly returns RuntimeException.
+                throw  new RuntimeException(axisFault);
             }
         }
         endpointList.clear();
     }
 
 
-    public void memberAdded(MembershipEvent membershipEvent) {
-
-    }
-
     public void memberRemoved(MembershipEvent membershipEvent) {
-        PrivilegedCarbonContext.startTenantFlow();
-        PrivilegedCarbonContext.getThreadLocalCarbonContext().setTenantId(MultitenantConstants.SUPER_TENANT_ID);
-        PrivilegedCarbonContext.getThreadLocalCarbonContext().setTenantDomain(MultitenantConstants.SUPER_TENANT_DOMAIN_NAME);
         // Set delay due to it take some times to zookeeper to sync data such as global queue when member left cluster
         try {
             Thread.sleep(coordinatorElectionDelay);

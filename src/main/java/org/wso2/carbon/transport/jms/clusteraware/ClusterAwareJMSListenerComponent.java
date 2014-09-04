@@ -64,17 +64,8 @@ public class ClusterAwareJMSListenerComponent {
         }
     }
 
-
     protected void deactivate(ComponentContext ctx) {
     }
-
-//    public boolean isCurrentCoordinator() {
-//        ClusteringAgent agent = ClusterAwareJMSDataHolder.getInstance().getClusteringAgent();
-//        if (agent != null) {
-//            return agent.isCoordinator();
-//        }
-//        return false;
-//    }
 
     public boolean isCurrentCoordinator() {
         return agent.isCoordinator();
